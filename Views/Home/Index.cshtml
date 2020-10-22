@@ -1,0 +1,14 @@
+﻿
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <form method="post">
+        <input type="text" id="ip" name="ip" value="@ViewBag.clientIPAddress">
+        <input type="submit">
+    </form>
+    <label class="text-danger">
+        @TempData["Message"]
+    </label>
+</div>
