@@ -3,12 +3,22 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
+<div class="text-left">
     <form method="post">
-        <input type="text" id="ip" name="ip" value="@ViewBag.clientIPAddress">
-        <input type="submit">
+        @if (string.IsNullOrEmpty((string)@TempData["Message"]))
+        {
+            <h5 class="text-info">
+                Add your IP to  @ViewBag.SqlServer  Azure Sql Server firewall:
+            </h5>
+            <br />
+            <input type="text" id="ip" name="ip" value="@ViewBag.clientIPAddress">
+            <input type="submit">
+        }
+        else
+        {
+            <h5 class="text-success">
+                @TempData["Message"]
+            </h5>
+        }
     </form>
-    <label class="text-danger">
-        @TempData["Message"]
-    </label>
 </div>

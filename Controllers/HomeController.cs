@@ -27,8 +27,11 @@ namespace WhiteList.IP.Controllers
 
         public IActionResult Index()
         {
-            string clientIPAddress = (new WebClient()).DownloadString("http://checkip.dyndns.org/");
-            ViewBag.clientIPAddress = (new Regex(@"\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}")).Matches(clientIPAddress)[0].ToString();
+            SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder(_configuration["ConnectionStrings:MasterConnectionString"]);
+            ViewBag.SqlServer = builder.DataSource;
+
+            string clientIPAddress = new WebClient().DownloadString("http://checkip.dyndns.org/");
+            ViewBag.clientIPAddress = new Regex(@"\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}").Matches(clientIPAddress)[0].ToString();
             return View();
         }
 
@@ -60,7 +63,7 @@ namespace WhiteList.IP.Controllers
                 TempData["Message"] = ex.Message;
             }
 
-            return View();
+            return RedirectToAction("Index");
         }
         public IActionResult Privacy()
         {
